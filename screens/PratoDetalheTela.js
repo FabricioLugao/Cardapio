@@ -1,11 +1,32 @@
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { PRATOS } from "../data/mock-data";
 import Lista from "../components/PratoDetalhe/Lista";
+import { useEffect } from "react";
+import BotaoIcone from "../components/BotaoIcone";
 
-function PratoDetalheTela({ route }) {
+function PratoDetalheTela({ route, navigation }) {
   const pratoId = route.params.pratoId;
 
   const pratoSelecionado = PRATOS.find((prato) => prato.id == pratoId);
+
+  function cliqueBotaoCabecalho() {
+    console.log("Clique botão cabeçalho");
+  }
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return <BotaoIcone onPress={cliqueBotaoCabecalho} icone="star" />;
+      },
+    });
+  });
 
   return (
     <ScrollView>
