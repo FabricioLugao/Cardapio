@@ -3,7 +3,7 @@ import { PRATOS, CATEGORIAS } from "../data/mock-data";
 import PratoItem from "../components/PratoItem";
 import { useEffect } from "react";
 
-function PratosVisaoGetalTela({ navigation, route }) {
+function PratosVisaoGeralTela({ navigation, route }) {
   const categoriaId = route.params.categoriaId;
   const pratosVisiveis = PRATOS.filter((pratoItem) => {
     return pratoItem.categoriaIds.indexOf(categoriaId) >= 0;
@@ -42,7 +42,7 @@ function PratosVisaoGetalTela({ navigation, route }) {
   );
 }
 
-export default PratosVisaoGetalTela;
+export default PratosVisaoGeralTela;
 
 const styles = StyleSheet.create({
   container: {
