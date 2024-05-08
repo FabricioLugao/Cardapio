@@ -2,6 +2,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import { PRATOS, CATEGORIAS } from "../data/mock-data";
 import PratoItem from "../components/PratoItem";
 import { useEffect } from "react";
+import PratosLista from "../components/PratosLista/PratosLista";
 
 function PratosVisaoGeralTela({ navigation, route }) {
   const categoriaId = route.params.categoriaId;
@@ -20,33 +21,7 @@ function PratosVisaoGeralTela({ navigation, route }) {
     });
   });
 
-  function renderItemPrato(itemData) {
-    return (
-      <PratoItem
-        id={itemData.item.id}
-        titulo={itemData.item.titulo}
-        urlImagem={itemData.item.urlImagem}
-        acessibilidadePreco={itemData.item.acessibilidadePreco}
-      />
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={pratosVisiveis}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItemPrato}
-      />
-    </View>
-  );
+  return <PratosLista pratosVisiveis={pratosVisiveis} />;
 }
 
 export default PratosVisaoGeralTela;
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});

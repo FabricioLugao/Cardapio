@@ -8,22 +8,33 @@ import {
 } from "react-native";
 import { PRATOS } from "../data/mock-data";
 import Lista from "../components/PratoDetalhe/Lista";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import BotaoIcone from "../components/BotaoIcone";
+import { FavoritosContext } from "../store/context/favoritos-context";
 
 function PratoDetalheTela({ route, navigation }) {
   const pratoId = route.params.pratoId;
-
   const pratoSelecionado = PRATOS.find((prato) => prato.id == pratoId);
+  const pratosFavoritosCtx = useContext(FavoritosContext);
+  const pratoEhFavorito = pratosFavoritosCtx.ids.includes(pratoId);
 
-  function cliqueBotaoCabecalho() {
-    console.log("Clique botão cabeçalho");
+  function alterarStatusFavorito() {
+    if (pratoEhFavorito) {
+      pratosFavoritosCtx.removerFavorito(pratoId);
+    } else {
+      pratosFavoritosCtx.adicionarFavorito(pratoId);
+    }
   }
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => {
-        return <BotaoIcone onPress={cliqueBotaoCabecalho} icone="star" />;
+        return (
+          <BotaoIcone
+            onPress={alterarStatusFavorito}
+            icone={pratoEhFavorito ? "star" : "star-o"}
+          />
+        );
       },
     });
   });
